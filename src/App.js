@@ -61,6 +61,74 @@ class App extends Component {
       todo: newTodos,
     });
   };
+  deletTodoListItem = (id, item) => {
+    const delTodo = {
+      todo: JSON.stringify([
+        item,
+        ...JSON.parse(this.state.todos.find((t) => t.id === id).todo),
+      ]),
+    };
+
+    fetch(config.API_ENDPOINT + `todo/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(delTodo),
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${config.API_KEY}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((error) => Promise.reject(error));
+        }
+        return res.json();
+      })
+      .then((todo) => {
+        this.setState({
+          todos: this.state.todos.map((existing) =>
+            existing.id === id ? { ...existing, ...delTodo } : existing
+          ),
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({ error });
+      });
+  };
+
+  addTodoListItem = (id, item) => {
+    const patchTodo = {
+      todo: JSON.stringify([
+        item,
+        ...JSON.parse(this.state.todos.find((t) => t.id === id).todo),
+      ]),
+    };
+    fetch(config.API_ENDPOINT + `todo/${id}`, {
+      method: "PATCH",
+      body: JSON.stringify(patchTodo),
+      headers: {
+        "content-type": "application/json",
+        authorization: `bearer ${config.API_KEY}`,
+      },
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.json().then((error) => Promise.reject(error));
+        }
+        return res.json();
+      })
+      .then((todo) => {
+        this.setState({
+          todos: this.state.todos.map((existing) =>
+            existing.id === id ? { ...existing, ...patchTodo } : existing
+          ),
+        });
+      })
+      .catch((error) => {
+        console.error(error);
+        this.setState({ error });
+      });
+  };
 
   addToDoList = () => {
     console.log("Attempting to add todo");
@@ -68,7 +136,7 @@ class App extends Component {
       title: "New Todo",
       todoList: [],
       completed: false,
-      todo: [],
+      todo: "[]",
     };
     // this.setState({
     //   todos: [...this.state.todos, newTodo],
@@ -88,8 +156,10 @@ class App extends Component {
         }
         return res.json();
       })
-      .then((data) => {
-        this.addTodo(data);
+      .then((todo) => {
+        this.setState({
+          todos: [...this.state.todos, todo],
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -157,8 +227,10 @@ class App extends Component {
         })
           .then((res) => {
             if (!res.ok) {
+              console.log("error");
               return res.json().then((error) => Promise.reject(error));
             }
+            console.log("Results fetched");
             return res.json();
           })
           .then((todos) => {
@@ -182,17 +254,22 @@ class App extends Component {
       ),
     });
   };
+
   updateTodo = (updatedTodo) => {
+    console.log("Before");
+    console.log(this.state.todos);
     this.setState({
       todos: this.state.todos.map((bm) =>
         bm.id !== updatedTodo.id ? bm : updatedTodo
       ),
     });
+    console.log("After");
+    console.log(this.state.todos);
   };
 
   editTodoTitle(noteId, title, todo) {
+    console.log("Edit todot title");
     const id = noteId;
-
     const newNote = { id, title, todo };
     console.log(newNote);
     this.updateEndpoint(noteId, newNote);
@@ -214,7 +291,7 @@ class App extends Component {
       })
       .then(() => {
         //this.resetFields(newNote);
-        this.updateNote(newNote);
+        this.updateTodo(newNote);
         //this.props.history.push("/");
       })
       .catch((error) => {
@@ -234,6 +311,7 @@ class App extends Component {
       deleteTodo: this.deleteTodo,
       updateTodo: this.updateTodo,
       editTodoTitle: this.editTodoTitle.bind(this),
+      addTodoListItem: this.addTodoListItem,
     };
 
     return (

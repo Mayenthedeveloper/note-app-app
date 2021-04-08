@@ -76,23 +76,23 @@ function deleteNoteRequest(noteId, cb) {
     });
 }
 
-function deleteTodoItem(elementId, todoArray, note, context) {
-  todoArray.splice(elementId, 1);
-  document.getElementById("item_" + elementId).style.display = "none";
-  const id = note.id;
-  const title = note.title;
-  var todo = "";
-  todoArray.map((item) => {
-    todo = todo + item + ",";
-  });
-  todo.slice(0, -1);
-  const completed = true;
-  const newTodo = { id, title, todo, completed };
-  // updateEndpoint(note.id, newTodo, context);
-}
+// function deleteTodoItem(elementId, todoArray, note, context) {
+//   todoArray.splice(elementId, 1);
+//   document.getElementById("item_" + elementId).style.display = "none";
+//   const id = note.id;
+//   const title = note.title;
+//   var todo = "";
+//   todoArray.map((item) => {
+//     todo = todo + item + ",";
+//   });
+//   todo.slice(0, -1);
+//   const completed = true;
+//   const newTodo = { id, title, todo, completed };
+//   // updateEndpoint(note.id, newTodo, context);
+// }
 
 function createTodoArray(props) {
-  console.log("Creating todo array");
+  // console.log("Creating todo array");
   if (props.todo == null) return;
   let arr = props.todo.split(",");
 
@@ -119,10 +119,9 @@ export default function NoteItemTodo(props) {
     todoArray = [];
   }
 
-  function addNewLine(event) {
+  function addNewLine(event, index) {
     if (event.code == "Enter") {
-      console.log(event.target.innerText);
-      const index = todoArray.indexOf(event.target.innerText);
+      console.log(index);
       todoArray[index] = event.target.innerText;
       console.log(todoArray);
       let todos = todoArray.join(",");
@@ -131,103 +130,128 @@ export default function NoteItemTodo(props) {
     }
   }
 
+  const [addText, setAddText] = useState("");
+  const todos = JSON.parse(props.todo);
+
   return (
     <div className="NoteItem">
       {/* {props.id} */}
-      <h3
-        contentEditable="true"
-        className="NoteItem__title"
-        onBlur={(e) =>
-          context.editTodoTitle(
-            props.id,
-            e.target.innerText,
-            props.notepad,
-            props.description
-          )
-        }
-      >
-        {props.title}
-        <i className=""></i>
-      </h3>
-      <table id="todolist">
-        {todoArray.length > 0 ? (
-          todoArray.map((todo, index) => {
-            return (
-              <tr id={"item_" + index}>
-                <td>
-                  <p
-                    className="todocontent single-line "
-                    contentEditable="true"
-                    onKeyPress={(e) =>
-                      addNewLine(e, todoArray, index, props.id)
-                    }
-                  >
-                    {todo}
-                  </p>
-                </td>
-                <td>
-                  <FontAwesomeIcon
-                    icon={["fas", "times"]}
-                    className="fa-icon delete-todo"
-                    onClick={() =>
-                      deleteTodoItem(index, todoArray, props, context)
-                    }
-                  />
-                </td>
-              </tr>
-            );
-          })
-        ) : (
-          <tr>
-            <td>
-              <p
-                className="todocontent single-line "
-                contentEditable="true"
-                onKeyPress={(e) => addNewLine(e, todoArray)}
-                id="firstTodo"
-              ></p>
-            </td>
-            <td>
-              <FontAwesomeIcon
-                icon={["fas", "times"]}
-                className="fa-icon delete-todo"
-              />
-            </td>
-          </tr>
-        )}
-        <tr>
-          <td>
-            <p
-              className="todocontent single-line "
-              contentEditable="true"
-              onKeyPress={(e) => addNewLine(e, todoArray)}
-              id="firstTodo"
-            ></p>
-          </td>
-          <td>
-            <FontAwesomeIcon
-              icon={["fas", "times"]}
-              className="fa-icon delete-todo"
-            />
-          </td>
-        </tr>
-      </table>
+      <input value={addText} onChange={(e) => setAddText(e.target.value)} />
+
+      {/* {props.todo} */}
+      <button onClick={() => context.addTodoListItem(props.id, addText)}>
+        Add Todo
+      </button>
+
+      <ul>
+        {todos.map((todo, index) => (
+          <li key={index}>{todo}</li>
+        ))}
+      </ul>
       <div className="NoteItem__buttons">
-        {/* <Link to={`/edit/${props.id}`}>Edit</Link>{" "} */}
-        {/* <button
-              className="NoteItem__description"
-              onClick={() => deleteNoteRequest(props.id, context.deleteNote)}
-            >
-              Delete
-            </button> */}
         <FontAwesomeIcon
           icon={["fas", "trash"]}
-          className="fa-icon"
-          onClick={() => deleteNoteRequest(props.id, context.deleteNote)}
+          className="fa-icon delete-todo"
+          onClick={() => deleteNoteRequest(props.id, context)}
         />
       </div>
     </div>
   );
+  // return (
+  //   <div className="NoteItem">
+  //     {/* {props.id} */}
+  //     <h3
+  //       contentEditable="true"
+  //       className="NoteItem__title"
+  //       onBlur={(e) =>
+  //         context.editTodoTitle(
+  //           props.id,
+  //           e.target.innerText,
+  //           props.notepad,
+  //           props.description
+  //         )
+  //       }
+  //     >
+  //       {props.title}
+  //       <i className=""></i>
+  //     </h3>
+  //     <table id="todolist">
+  //       {todoArray.length > 0 ? (
+  //         todoArray.map((todo, index) => {
+  //           return (
+  //             <tr id={"item_" + index}>
+  //               <td>
+  //                 <p
+  //                   className="todocontent single-line "
+  //                   contentEditable="true"
+  //                   onKeyPress={(e) => addNewLine(e, index)}
+  //                 >
+  //                   {todo}
+  //                 </p>
+  //               </td>
+  //               <td>
+  //                 <FontAwesomeIcon
+  //                   icon={["fas", "times"]}
+  //                   className="fa-icon delete-todo"
+  //                   onClick={() =>
+  //                     deleteTodoItem(index, todoArray, props, context)
+  //                   }
+  //                 />
+  //               </td>
+  //             </tr>
+  //           );
+  //         })
+  //       ) : (
+  //         <tr>
+  //           <td>
+  //             <p
+  //               className="todocontent single-line "
+  //               contentEditable="true"
+  //               onKeyPress={(e) => addNewLine(e, 0)}
+  //               id="firstTodo"
+  //             ></p>
+  //           </td>
+  //           <td>
+  //             <FontAwesomeIcon
+  //               icon={["fas", "times"]}
+  //               className="fa-icon delete-todo"
+  //             />
+  //           </td>
+  //         </tr>
+  //       )}
+  //       <tr>
+  //         <td>
+  //           <p
+  //             className="todocontent single-line "
+  //             contentEditable="true"
+  //             onKeyPress={(e) => addNewLine(e, todoArray)}
+  //             id="firstTodo"
+  //           ></p>
+  //         </td>
+  //         <td>
+  //           <FontAwesomeIcon
+  //             icon={["fas", "times"]}
+  //             className="fa-icon delete-todo"
+  //           />
+  //         </td>
+  //       </tr>
+  //     </table>
+  //     <div className="NoteItem__buttons">
+  //       {/* <Link to={`/edit/${props.id}`}>Edit</Link>{" "} */}
+  //       {/* <button
+  //             className="NoteItem__description"
+  //             onClick={() => deleteNoteRequest(props.id, context.deleteNote)}
+  //           >
+  //             Delete
+  //           </button> */}
+  //       <FontAwesomeIcon
+  //         icon={["fas", "trash"]}
+  //         className="fa-icon"
+  //         onClick={() => deleteNoteRequest(props.id, context.deleteNote)}
+  //       />
+  //     </div>
+  //   </div>
+  // );
 }
 
 NoteItemTodo.defaultProps = {

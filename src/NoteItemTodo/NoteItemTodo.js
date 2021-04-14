@@ -92,11 +92,16 @@ function deleteNoteRequest(noteId, cb) {
 // }
 
 function createTodoArray(props) {
-  // console.log("Creating todo array");
+  console.log("Creating todo array");
+  console.log(props);
   if (props.todo == null) return;
-  let arr = props.todo.split(",");
-
-  return arr;
+  if (props.todo.length == 1) {
+    let arr = props.todo;
+    return arr;
+  } else {
+    let arr = props.todo.split(",");
+    return arr;
+  }
 }
 
 // function addNewLine(event, todoArray, index, id) {
@@ -130,9 +135,15 @@ export default function NoteItemTodo(props) {
     }
   }
 
-  const [addText, setAddText] = useState("");
-  const todos = JSON.parse(props.todo);
+  function deleteTodoItem(id, todos, val) {
+    context.deletTodoListItem(id, todos, val);
+  }
 
+  const [addText, setAddText] = useState("");
+  console.log("TODOss");
+  console.log(props);
+  const todos = props.todo.length > 1 ? JSON.parse(props.todo) : props.todo;
+  console.log(todos);
   return (
     <div className="NoteItem">
       {/* {props.id} */}
@@ -143,11 +154,21 @@ export default function NoteItemTodo(props) {
         Add Todo
       </button>
 
-      <ul>
+      <table id="todolist">
         {todos.map((todo, index) => (
-          <li key={index}>{todo}</li>
+          <tr key={index}>
+            <td>{todo}</td>
+            <td>
+              <b
+                value={todo}
+                onClick={() => deleteTodoItem(props.id, todos, { todo })}
+              >
+                X
+              </b>
+            </td>
+          </tr>
         ))}
-      </ul>
+      </table>
       <div className="NoteItem__buttons">
         <FontAwesomeIcon
           icon={["fas", "trash"]}
@@ -261,7 +282,7 @@ NoteItemTodo.defaultProps = {
 NoteItemTodo.propTypes = {
   id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
   title: PropTypes.string.isRequired,
-  todo: PropTypes.string.isRequired,
+  todo: PropTypes.array,
   completed: PropTypes.bool,
   onClickDelete: PropTypes.func,
 };

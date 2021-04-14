@@ -13,6 +13,7 @@ function editNote(noteId, noteTitle, e, noteDescription, context) {
   const notepad = e.innerText;
   const description = noteDescription;
   const newNote = { id, title, notepad, description };
+  console.log("Editing note");
   console.log(newNote);
   updateEndpoint(noteId, newNote, context);
 }
@@ -40,7 +41,8 @@ function updateEndpoint(noteId, newNote, context) {
       if (!res.ok) return res.json().then((error) => Promise.reject(error));
     })
     .then(() => {
-      //this.resetFields(newNote);
+      console.log("Editted Note");
+      console.log(newNote);
       context.updateNote(newNote);
       //this.props.history.push("/");
     })

@@ -11,6 +11,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSmile, faImage } from "@fortawesome/free-regular-svg-icons";
 import { faTrash, faListUl, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { totalmem } from "os";
 library.add(faTrash, faListUl, faTimes);
 
 class App extends Component {
@@ -61,14 +62,20 @@ class App extends Component {
       todo: newTodos,
     });
   };
-  deletTodoListItem = (id, item) => {
-    const delTodo = {
-      todo: JSON.stringify([
-        item,
-        ...JSON.parse(this.state.todos.find((t) => t.id === id).todo),
-      ]),
-    };
 
+  deletTodoListItem = (id, item, value) => {
+    console.log("In delete");
+    var todoFinal = [];
+    item.map((todoItem) => {
+      if (todoItem != value.todo) {
+        todoFinal.push(todoItem);
+      }
+    });
+    const todo = JSON.stringify(todoFinal);
+    const title = "New TODO";
+    const completed = true;
+    const delTodo = { id, title, completed, todo };
+    console.log(delTodo);
     fetch(config.API_ENDPOINT + `todo/${id}`, {
       method: "PATCH",
       body: JSON.stringify(delTodo),
@@ -78,15 +85,17 @@ class App extends Component {
       },
     })
       .then((res) => {
+        console.log("RESPONSE");
         if (!res.ok) {
           return res.json().then((error) => Promise.reject(error));
         }
         return res.json();
       })
       .then((todo) => {
+        console.log(todo);
         this.setState({
           todos: this.state.todos.map((existing) =>
-            existing.id === id ? { ...existing, ...delTodo } : existing
+            existing.id === id ? delTodo : existing
           ),
         });
       })
@@ -129,6 +138,17 @@ class App extends Component {
         this.setState({ error });
       });
   };
+
+  // deleteTodoItem = (id, item) => {
+  //   console.log(id);
+  //   console.log(item);
+  //   const patchTodo = {
+  //     todo: JSON.stringify([
+  //       item,
+  //       ...JSON.parse(this.state.todos.find((t) => t.id === id).todo),
+  //     ]),
+  //   };
+  // };
 
   addToDoList = () => {
     console.log("Attempting to add todo");
@@ -192,6 +212,19 @@ class App extends Component {
         return res.json();
       })
       .then((data) => {
+        console.log("Data");
+        console.log(data);
+
+        var size = this.state.notes.length;
+        var noteAdded = this.state.notes[size - 1];
+        noteAdded.id = data.id;
+        console.log("Note added");
+        console.log(noteAdded);
+        this.setState({
+          notes: this.state.notes.map((bm, index) =>
+            index == size - 1 ? noteAdded : bm
+          ),
+        });
         this.context.AddNote(data);
       })
       .catch((error) => {
@@ -233,13 +266,7 @@ class App extends Component {
             console.log("Results fetched");
             return res.json();
           })
-          .then((todos) => {
-            console.log("Getting from DB");
-            console.log(todos);
-            this.setState({
-              todos: todos,
-            });
-          })
+          .then(this.setTodos)
       )
       .catch((error) => {
         console.error(error);
@@ -248,6 +275,7 @@ class App extends Component {
   }
 
   updateNote = (updatedNote) => {
+    console.log("App.js -- update note");
     this.setState({
       notes: this.state.notes.map((bm) =>
         bm.id !== updatedNote.id ? bm : updatedNote
@@ -312,6 +340,7 @@ class App extends Component {
       updateTodo: this.updateTodo,
       editTodoTitle: this.editTodoTitle.bind(this),
       addTodoListItem: this.addTodoListItem,
+      deletTodoListItem: this.deletTodoListItem.bind(this),
     };
 
     return (

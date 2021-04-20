@@ -42,24 +42,27 @@ class App extends Component {
   };
 
   addTodo = (todo) => {
+    console.log("adding todo to state");
     this.setState({
       todos: [...this.state.todos, todo],
     });
+    console.log(this.state.todos);
   };
 
   deleteNote = (noteId) => {
+    console.log("Deleting from state notes");
     const newNotes = this.state.notes.filter((bm) => bm.id !== noteId);
-    console.log("Deleting from state");
     this.setState({
       notes: newNotes,
     });
   };
 
   deleteTodo = (todoId) => {
+    console.log(this.state.todos);
     const newTodos = this.state.todos.filter((bm) => bm.id !== todoId);
-    console.log("Deleting from state");
+    console.log("Deleting from state todo");
     this.setState({
-      todo: newTodos,
+      todos: newTodos,
     });
   };
 

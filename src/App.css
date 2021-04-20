@@ -4,6 +4,8 @@
   /* background: url("https://cdn.hipwallpaper.com/i/5/38/NvWhsk.jpg"); */
   background: url("./images/backgroundImg.png");
   background-size: cover;
+  background-repeat: repeat;
+  min-height: 100vh;
 }
 
 h1 {
@@ -23,10 +25,9 @@ button {
 
 #header {
   padding: 20px;
-  display: inline-flex;
+  display: flex;
   height: 8vh;
   background: black;
-  width: 100vw;
   text-align: center;
 }
 

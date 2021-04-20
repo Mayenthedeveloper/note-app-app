@@ -63,13 +63,17 @@ function deleteNoteRequest(noteId, cb) {
     },
   })
     .then((res) => {
+      console.log("Response:");
+      console.log(res);
       if (!res.ok) {
         return res.json().then((error) => Promise.reject(error));
       }
-      return res.json();
+      return res;
     })
     .then((data) => {
-      cb(noteId);
+      console.log("Data from backend");
+      console.log(data);
+      cb.deleteTodo(noteId);
     })
     .catch((error) => {
       console.error(error);
@@ -137,6 +141,14 @@ export default function NoteItemTodo(props) {
 
   function deleteTodoItem(id, todos, val) {
     context.deletTodoListItem(id, todos, val);
+    console.log("Deleeted");
+    console.log(context.todo);
+    console.log(todos);
+  }
+
+  function addItem(id, addText) {
+    context.addTodoListItem(id, addText);
+    setAddText("");
   }
 
   const [addText, setAddText] = useState("");
@@ -150,15 +162,13 @@ export default function NoteItemTodo(props) {
       <input value={addText} onChange={(e) => setAddText(e.target.value)} />
 
       {/* {props.todo} */}
-      <button onClick={() => context.addTodoListItem(props.id, addText)}>
-        Add Todo
-      </button>
+      <button onClick={() => addItem(props.id, addText)}>Add Todo</button>
 
       <table id="todolist">
         {todos.map((todo, index) => (
           <tr key={index}>
             <td>{todo}</td>
-            <td>
+            <td id="crossIcon">
               <b
                 value={todo}
                 onClick={() => deleteTodoItem(props.id, todos, { todo })}

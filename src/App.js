@@ -314,7 +314,7 @@ class App extends Component {
               onClick={this.addToDoList}
             />
           </button>
-          <p id="appTitle">Notes App</p>
+          <p id="appTitle">Notely App</p>
         </div>
         <NotesContext.Provider value={contextValue}>
           <div className="content" aria-live="polite">

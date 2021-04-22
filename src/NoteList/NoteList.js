@@ -28,7 +28,10 @@ class NoteList extends Component {
 
     return (
       <section className="NoteList">
-        <h2 className="title">Your notes</h2>
+        <p className="title">
+          This is a note and todos app. Users can add, delete, and update notes
+          or todos
+        </p>
         <div className="NoteList__list" aria-live="polite">
           {notes.map((note) => (
             <NoteItem key={note.id} {...note} />

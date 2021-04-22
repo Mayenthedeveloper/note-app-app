@@ -42,15 +42,12 @@ class App extends Component {
   };
 
   addTodo = (todo) => {
-    console.log("adding todo to state");
     this.setState({
       todos: [...this.state.todos, todo],
     });
-    console.log(this.state.todos);
   };
 
   deleteNote = (noteId) => {
-    console.log("Deleting from state notes");
     const newNotes = this.state.notes.filter((bm) => bm.id !== noteId);
     this.setState({
       notes: newNotes,
@@ -58,16 +55,14 @@ class App extends Component {
   };
 
   deleteTodo = (todoId) => {
-    console.log(this.state.todos);
     const newTodos = this.state.todos.filter((bm) => bm.id !== todoId);
-    console.log("Deleting from state todo");
+
     this.setState({
       todos: newTodos,
     });
   };
 
   deletTodoListItem = (id, item, value) => {
-    console.log("In delete");
     var todoFinal = [];
     item.map((todoItem) => {
       if (todoItem != value.todo) {
@@ -78,7 +73,7 @@ class App extends Component {
     const title = "New TODO";
     const completed = true;
     const delTodo = { id, title, completed, todo };
-    console.log(delTodo);
+
     fetch(config.API_ENDPOINT + `todo/${id}`, {
       method: "PATCH",
       body: JSON.stringify(delTodo),
@@ -88,14 +83,12 @@ class App extends Component {
       },
     })
       .then((res) => {
-        console.log("RESPONSE");
         if (!res.ok) {
           return res.json().then((error) => Promise.reject(error));
         }
         return res.json();
       })
       .then((todo) => {
-        console.log(todo);
         this.setState({
           todos: this.state.todos.map((existing) =>
             existing.id === id ? delTodo : existing
@@ -143,7 +136,6 @@ class App extends Component {
   };
 
   addToDoList = () => {
-    console.log("Attempting to add todo");
     const newTodo = {
       title: "New Todo",
       todoList: [],
@@ -182,9 +174,6 @@ class App extends Component {
       notepad: "Add new text",
       description: "",
     };
-    // this.setState({
-    //   notes: [...this.state.notes, newNote],
-    // });
 
     fetch(config.API_ENDPOINT + `notes/`, {
       method: "POST",
@@ -201,23 +190,11 @@ class App extends Component {
         return res.json();
       })
       .then((data) => {
-        console.log("Data");
-        console.log(data);
-
-        // var size = this.state.notes.length;
-        // var noteAdded = this.state.notes[size - 1];
         newNote.id = data.id;
 
         this.setState({
           notes: [...this.state.notes, newNote],
         });
-
-        // this.setState({
-        //   notes: this.state.notes.map((bm, index) =>
-        //     index == size - 1 ? noteAdded : bm
-        //   ),
-        // });
-        // this.context.AddNote(data);
       })
       .catch((error) => {
         console.error(error);
@@ -252,10 +229,9 @@ class App extends Component {
         })
           .then((res) => {
             if (!res.ok) {
-              console.log("error");
               return res.json().then((error) => Promise.reject(error));
             }
-            console.log("Results fetched");
+
             return res.json();
           })
           .then(this.setTodos)
@@ -267,7 +243,6 @@ class App extends Component {
   }
 
   updateNote = (updatedNote) => {
-    console.log("App.js -- update note");
     this.setState({
       notes: this.state.notes.map((bm) =>
         bm.id !== updatedNote.id ? bm : updatedNote
@@ -276,28 +251,21 @@ class App extends Component {
   };
 
   updateTodo = (updatedTodo) => {
-    console.log("Before");
-    console.log(this.state.todos);
     this.setState({
       todos: this.state.todos.map((bm) =>
         bm.id !== updatedTodo.id ? bm : updatedTodo
       ),
     });
-    console.log("After");
-    console.log(this.state.todos);
   };
 
   editTodoTitle(noteId, title, todo) {
-    console.log("Edit todot title");
     const id = noteId;
     const newNote = { id, title, todo };
-    console.log(newNote);
+
     this.updateEndpoint(noteId, newNote);
   }
 
   updateEndpoint(noteId, newNote) {
-    console.log("Updating todo");
-    console.log(newNote);
     fetch(config.API_ENDPOINT + `todo/${noteId}`, {
       method: "PATCH",
       body: JSON.stringify(newNote),
@@ -310,13 +278,10 @@ class App extends Component {
         if (!res.ok) return res.json().then((error) => Promise.reject(error));
       })
       .then(() => {
-        //this.resetFields(newNote);
         this.updateTodo(newNote);
-        //this.props.history.push("/");
       })
       .catch((error) => {
         console.error(error);
-        //this.setState({ error });
       });
   }
   render() {
@@ -327,7 +292,7 @@ class App extends Component {
       updateNote: this.updateNote,
       todos: this.state.todos,
       addToDoList: this.addToDoList.bind(this),
-      // addTodo: this.addTodo,
+
       deleteTodo: this.deleteTodo,
       updateTodo: this.updateTodo,
       editTodoTitle: this.editTodoTitle.bind(this),

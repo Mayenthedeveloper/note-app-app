@@ -41,11 +41,9 @@ function updateEndpoint(noteId, newNote, context) {
     })
     .then(() => {
       context.updateNote(newNote);
-      //this.props.history.push("/");
     })
     .catch((error) => {
       console.error(error);
-      //this.setState({ error });
     });
 }
 

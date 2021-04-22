@@ -26,8 +26,6 @@ class NoteList extends Component {
     const notes = this.context.notes;
     const todos = this.context.todos;
 
-    console.log(JSON.stringify(notes));
-
     return (
       <section className="NoteList">
         <h2 className="title">Your notes</h2>

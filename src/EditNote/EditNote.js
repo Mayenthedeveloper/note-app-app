@@ -12,9 +12,6 @@ class EditNote extends Component {
     match: PropTypes.shape({
       params: PropTypes.object,
     }),
-    // history: PropTypes.shape({
-    //   push: PropTypes.func,
-    // }),
   };
 
   static contextType = NotesContext;
@@ -84,7 +81,6 @@ class EditNote extends Component {
       .then(() => {
         this.resetFields(newNote);
         this.context.updateNote(newNote);
-        // this.props.history.push("/");
       })
       .catch((error) => {
         this.setState({ error });

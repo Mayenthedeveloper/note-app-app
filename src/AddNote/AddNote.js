@@ -21,7 +21,7 @@ class AddNote extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    // get the form fields from the event
+
     const { title, notepad, description } = e.target;
     const note = {
       title: title.value,

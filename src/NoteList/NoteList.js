@@ -25,18 +25,15 @@ class NoteList extends Component {
   render() {
     const notes = this.context.notes;
     const todos = this.context.todos;
-    console.log("Note List");
-    console.log(this.context);
+
     return (
       <section className="NoteList">
-        <h2 class="title">Your notes</h2>
+        <h2 className="title">Your notes</h2>
         <div className="NoteList__list" aria-live="polite">
           {notes.map((note) => (
             <NoteItem key={note.id} {...note} />
           ))}
-          {/* </div>
-        <div>
-          <h2>YOUR TODOS</h2> */}
+
           {todos != null
             ? todos.map((todo) => <NoteItemTodo key={todo.id} {...todo} />)
             : ""}

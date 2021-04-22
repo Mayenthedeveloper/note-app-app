@@ -142,17 +142,6 @@ class App extends Component {
       });
   };
 
-  // deleteTodoItem = (id, item) => {
-  //   console.log(id);
-  //   console.log(item);
-  //   const patchTodo = {
-  //     todo: JSON.stringify([
-  //       item,
-  //       ...JSON.parse(this.state.todos.find((t) => t.id === id).todo),
-  //     ]),
-  //   };
-  // };
-
   addToDoList = () => {
     console.log("Attempting to add todo");
     const newTodo = {
@@ -161,9 +150,6 @@ class App extends Component {
       completed: false,
       todo: "[]",
     };
-    // this.setState({
-    //   todos: [...this.state.todos, newTodo],
-    // });
 
     fetch(config.API_ENDPOINT + `todo/`, {
       method: "POST",

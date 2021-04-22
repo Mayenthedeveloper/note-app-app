@@ -1,13 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import EditNote from "./EditNote";
+import NoteItemTodo from "./NoteItemTodo";
 import { BrowserRouter } from "react-router-dom";
 
 it("renders without crashing", () => {
   const div = document.createElement("div");
+  let prop = {
+    params: "",
+  };
   ReactDOM.render(
     <BrowserRouter>
-      <EditNote />
+      <NoteItemTodo todo={""} />
     </BrowserRouter>,
     div
   );

@@ -14,7 +14,7 @@ class EditNote extends Component {
     }),
     history: PropTypes.shape({
       push: PropTypes.func,
-    }).isRequired,
+    }),
   };
 
   static contextType = NotesContext;
@@ -49,7 +49,6 @@ class EditNote extends Component {
         });
       })
       .catch((error) => {
-        console.error(error);
         this.setState({ error });
       });
   }
@@ -88,7 +87,6 @@ class EditNote extends Component {
         this.props.history.push("/");
       })
       .catch((error) => {
-        console.error(error);
         this.setState({ error });
       });
   };

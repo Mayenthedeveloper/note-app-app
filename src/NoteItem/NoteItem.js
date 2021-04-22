@@ -13,8 +13,7 @@ function editNote(noteId, noteTitle, e, noteDescription, context) {
   const notepad = e.innerText;
   const description = noteDescription;
   const newNote = { id, title, notepad, description };
-  console.log("Editing note");
-  console.log(newNote);
+
   updateEndpoint(noteId, newNote, context);
 }
 
@@ -24,7 +23,7 @@ function editNoteTitle(noteId, e, noteBody, noteDescription, context) {
   const notepad = noteBody;
   const description = noteDescription;
   const newNote = { id, title, notepad, description };
-  console.log(newNote);
+
   updateEndpoint(noteId, newNote, context);
 }
 
@@ -41,8 +40,6 @@ function updateEndpoint(noteId, newNote, context) {
       if (!res.ok) return res.json().then((error) => Promise.reject(error));
     })
     .then(() => {
-      console.log("Editted Note");
-      console.log(newNote);
       context.updateNote(newNote);
       //this.props.history.push("/");
     })
@@ -53,7 +50,6 @@ function updateEndpoint(noteId, newNote, context) {
 }
 
 function deleteNoteRequest(noteId, context) {
-  //document.getElementById(noteId).style.display = "none";
   fetch(config.API_ENDPOINT + `notes/${noteId}`, {
     method: "DELETE",
     headers: {
@@ -93,6 +89,7 @@ export default function NoteItem(props) {
                 context
               )
             }
+            suppressContentEditableWarning={true}
           >
             {props.title}
             <i className=""></i>
@@ -113,19 +110,10 @@ export default function NoteItem(props) {
             {props.notepad}
           </p>
 
-          {/* //listtag */}
-
           <p className="NoteItem__description">{props.description}</p>
           <div className="NoteItem__buttons">
-            {/* <Link to={`/edit/${props.id}`}>Edit</Link>{" "} */}
-            {/* <button
-              className="NoteItem__description"
-              onClick={() => deleteNoteRequest(props.id, context.deleteNote)}
-            >
-              Delete
-            </button> */}
             <FontAwesomeIcon
-              icon={["fas", "trash"]}
+              icon={"trash"}
               className="fa-icon"
               onClick={() => deleteNoteRequest(props.id, context)}
             />
@@ -141,9 +129,9 @@ NoteItem.defaultProps = {
 };
 
 NoteItem.propTypes = {
-  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-  title: PropTypes.string.isRequired,
-  notepad: PropTypes.string.isRequired,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  title: PropTypes.string,
+  notepad: PropTypes.string,
   desciption: PropTypes.string,
 
   onClickDelete: PropTypes.func,

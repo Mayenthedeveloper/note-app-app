@@ -73,7 +73,6 @@ export default function NoteItemTodo(props) {
   const todos =
     props.todo && props.todo.length > 1 ? JSON.parse(props.todo) : props.todo;
 
-  console.log(todos);
   return (
     <div className="NoteItem">
       <input value={addText} onChange={(e) => setAddText(e.target.value)} />
@@ -82,20 +81,21 @@ export default function NoteItemTodo(props) {
 
       <table id="todolist">
         <tbody>
-          {todos &&
-            todos.map((todo, index) => (
-              <tr key={index}>
-                <td>{todo}</td>
-                <td id="crossIcon">
-                  <b
-                    value={todo}
-                    onClick={() => deleteTodoItem(props.id, todos, { todo })}
-                  >
-                    X
-                  </b>
-                </td>
-              </tr>
-            ))}
+          {todos
+            ? todos.map((todo, index) => (
+                <tr key={index}>
+                  <td>{todo}</td>
+                  <td id="crossIcon">
+                    <b
+                      value={todo}
+                      onClick={() => deleteTodoItem(props.id, todos, { todo })}
+                    >
+                      X
+                    </b>
+                  </td>
+                </tr>
+              ))
+            : null}
         </tbody>
       </table>
       <div className="NoteItem__buttons">

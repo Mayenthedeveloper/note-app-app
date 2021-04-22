@@ -4,14 +4,14 @@ import AddNote from "./AddNote/AddNote";
 import EditNote from "./EditNote/EditNote";
 import NoteList from "./NoteList/NoteList";
 import NotesContext from "./NotesContext";
-import Nav from "./Nav/Nav";
+
 import config from "./config";
 import "./App.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faSmile, faImage } from "@fortawesome/free-regular-svg-icons";
 import { faTrash, faListUl, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { totalmem } from "os";
+
 library.add(faTrash, faListUl, faTimes);
 
 class App extends Component {
@@ -182,9 +182,9 @@ class App extends Component {
       notepad: "Add new text",
       description: "",
     };
-    this.setState({
-      notes: [...this.state.notes, newNote],
-    });
+    // this.setState({
+    //   notes: [...this.state.notes, newNote],
+    // });
 
     fetch(config.API_ENDPOINT + `notes/`, {
       method: "POST",
@@ -204,17 +204,20 @@ class App extends Component {
         console.log("Data");
         console.log(data);
 
-        var size = this.state.notes.length;
-        var noteAdded = this.state.notes[size - 1];
-        noteAdded.id = data.id;
-        console.log("Note added");
-        console.log(noteAdded);
+        // var size = this.state.notes.length;
+        // var noteAdded = this.state.notes[size - 1];
+        newNote.id = data.id;
+
         this.setState({
-          notes: this.state.notes.map((bm, index) =>
-            index == size - 1 ? noteAdded : bm
-          ),
+          notes: [...this.state.notes, newNote],
         });
-        this.context.AddNote(data);
+
+        // this.setState({
+        //   notes: this.state.notes.map((bm, index) =>
+        //     index == size - 1 ? noteAdded : bm
+        //   ),
+        // });
+        // this.context.AddNote(data);
       })
       .catch((error) => {
         console.error(error);

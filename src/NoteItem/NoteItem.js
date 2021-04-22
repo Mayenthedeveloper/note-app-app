@@ -106,6 +106,7 @@ export default function NoteItem(props) {
                 context
               )
             }
+            suppressContentEditableWarning={true}
           >
             {props.notepad}
           </p>

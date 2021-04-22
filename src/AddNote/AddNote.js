@@ -10,7 +10,7 @@ class AddNote extends Component {
   static propTypes = {
     history: PropTypes.shape({
       push: PropTypes.func,
-    }).isRequired,
+    }),
   };
 
   static contextType = NotesContext;

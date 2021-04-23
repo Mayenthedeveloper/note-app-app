@@ -36,7 +36,7 @@
 }
 
 .NoteItem {
-  padding: 5px;
+  padding: 10px;
   margin-bottom: 10px;
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
   background-color: yellow;
@@ -51,3 +51,13 @@
   bottom: 10px;
   right: 10px;
 }
+
+#inputFld {
+  width: 100%;
+}
+
+/* @media screen and (min-width: 460px) {
+  #inputFld {
+    background-color: red;
+  }
+} */

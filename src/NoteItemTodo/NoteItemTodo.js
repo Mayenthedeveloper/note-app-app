@@ -75,7 +75,11 @@ export default function NoteItemTodo(props) {
 
   return (
     <div className="NoteItem">
-      <input value={addText} onChange={(e) => setAddText(e.target.value)} />
+      <input
+        value={addText}
+        id="inputFld"
+        onChange={(e) => setAddText(e.target.value)}
+      />
 
       <button onClick={() => addItem(props.id, addText)}>Add Todo</button>
 

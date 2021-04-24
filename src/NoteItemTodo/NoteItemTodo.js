@@ -72,7 +72,8 @@ export default function NoteItemTodo(props) {
   const [addText, setAddText] = useState("");
   const todos =
     props.todo && props.todo.length > 1 ? JSON.parse(props.todo) : props.todo;
-
+  console.log(JSON.parse(props.todo));
+  console.log(props.todo);
   return (
     <div className="NoteItem">
       <input

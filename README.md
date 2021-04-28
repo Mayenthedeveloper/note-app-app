@@ -14,7 +14,7 @@ Check out the [live website.](https://note-pad-app-mayenthedeveloper.vercel.app)
 The [API documentation](https://github.com/Mayenthedeveloper/note-app-api/blob/master/README.md) is available on the african-clothing-api repository's README.md.
 
 ## Features
-Users can Add notes and todos by clicking these icon.![Icon](![Notely App 3](https://user-images.githubusercontent.com/70912329/116485775-e77c7a00-a840-11eb-9ec0-b60b58c6fa31.png))
+Users can Add notes and todos by clicking these icon.![Icon](https://user-images.githubusercontent.com/70912329/116485775-e77c7a00-a840-11eb-9ec0-b60b58c6fa31.png))
 
 
 ![Notely App 2](https://user-images.githubusercontent.com/70912329/116485784-ee0af180-a840-11eb-8fa6-eff17941331e.png)

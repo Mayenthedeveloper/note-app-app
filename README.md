@@ -22,4 +22,13 @@ Users can Add notes and todos by clicking these icon.![Icon](https://user-images
 
 ![Notely App 1](https://user-images.githubusercontent.com/70912329/116485793-f2cfa580-a840-11eb-9b70-b2f1e32aa9e8.png)
 
+## Tech Stack
+
+* Javascript
+* React
+* Node.js
+* Postgres
+* HTML
+* CSS
+
 

@@ -8,4 +8,6 @@ Welcome to my Notely App.   This is a note and todos app. Users can add, delete,
 
 Check out the [live website.](https://note-pad-app-mayenthedeveloper.vercel.app) 
 
+![Notely App 2021-04-28 16-36-14](https://user-images.githubusercontent.com/70912329/116485391-f282da80-a83f-11eb-96b4-70a60726a334.png)
+
 

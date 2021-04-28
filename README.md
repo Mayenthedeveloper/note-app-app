@@ -4,6 +4,8 @@ Welcome to my Notely App.   This is a note and todos app. Users can add, delete,
 * Users create a new note to write on by clicking the Plus icon. 
 * Users create a new todos  by clicking the todos icon. 
 * Users are able to create a list of todos, and create notes 
-* Users are able to delete/update the todos, and users are able to update/deletenotes   
+* Users are able to delete/update the todos, and users are able to update/delete notes 
+
+Check out the [live website.](https://note-pad-app-mayenthedeveloper.vercel.app) 
 
 

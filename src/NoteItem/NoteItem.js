@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-// import Rating from "../Rating/Rating";
 import NotesContext from "../NotesContext";
 import config from "../config";
 import "./NoteItem.css";

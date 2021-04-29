@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import NotesContext from "../NotesContext";
 import config from "../config";
 import "./EditNote.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Required = () => <span className="EditNote__required">*</span>;
 

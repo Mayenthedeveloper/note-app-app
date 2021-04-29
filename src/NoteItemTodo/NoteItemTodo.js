@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+
 import NotesContext from "../NotesContext";
 import config from "../config";
 import "./NoteItemTodo.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import { faTrash, faListUl, faTimes } from "@fortawesome/free-solid-svg-icons";
-// library.add(faTrash, faListUl, faTimes);
 
 function deleteNoteRequest(noteId, cb) {
   fetch(config.API_ENDPOINT + `todo/${noteId}`, {

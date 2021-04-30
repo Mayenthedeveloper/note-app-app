@@ -32,14 +32,16 @@ class NoteList extends Component {
           This is a note and todos app. Users can add, delete, and update notes
           or todos
         </p>
-        <div className="NoteList__list" aria-live="polite">
-          {notes.map((note) => (
-            <NoteItem key={note.id} {...note} />
-          ))}
+        <div>
+          <div className="NoteList__list" aria-live="polite">
+            {notes.map((note) => (
+              <NoteItem key={note.id} {...note} />
+            ))}
 
-          {todos != null
-            ? todos.map((todo) => <NoteItemTodo key={todo.id} {...todo} />)
-            : ""}
+            {todos != null
+              ? todos.map((todo) => <NoteItemTodo key={todo.id} {...todo} />)
+              : ""}
+          </div>
         </div>
       </section>
     );

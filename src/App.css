@@ -58,6 +58,15 @@ button {
 }
 
 @media screen and (min-width: 460px) {
+  .App {
+    min-height: 100vh !important;
+    background: url("./images/backgroundImg.png");
+    background-size: cover;
+    background-repeat: repeat;
+  }
+}
+
+@media screen and (min-width: 460px) {
   body,
   input,
   textarea {

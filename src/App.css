@@ -24,11 +24,12 @@ button {
 }
 
 #header {
-  padding: 20px;
+  padding: 5px;
   display: flex;
-  height: 8vh;
+
   background: black;
   text-align: center;
+  align-items: baseline;
 }
 
 #addNoteBtn {
@@ -49,21 +50,11 @@ button {
 }
 
 #appTitle {
-  font-size: 40px;
+  /* font-size: 40px; */
   color: white;
   font-weight: bold;
-  position: absolute;
-  left: 50%;
-  top: 0;
-}
-
-@media screen and (min-width: 460px) {
-  .App {
-    min-height: 100vh !important;
-    background: url("./images/backgroundImg.png");
-    background-size: cover;
-    background-repeat: repeat;
-  }
+  /* position: absolute; */
+  margin: 0 auto;
 }
 
 @media screen and (min-width: 460px) {
@@ -71,5 +62,14 @@ button {
   input,
   textarea {
     font-size: 1.1em;
+  }
+  .App {
+    min-height: 100vh !important;
+    background: url("./images/backgroundImg.png");
+    background-size: cover;
+    background-repeat: repeat;
+  }
+  .content {
+    margin: 0 auto;
   }
 }

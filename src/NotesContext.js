@@ -6,15 +6,12 @@ const NotesContext = React.createContext({
   deleteNote: () => {},
   updateNote: () => {},
   todos: [],
-  // addTodo: () => {},
+
   deleteTodo: () => {},
   updateTodo: () => {},
   editTodoTitle: () => {},
   addTodoListItem: () => {},
   deletTodoListItem: () => {},
-  // addTodo: () => {},
-
-  // dlete list added so
 });
 
 export default NotesContext;

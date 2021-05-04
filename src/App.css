@@ -1,7 +1,7 @@
 .App {
   text-align: center;
   color: #444;
-  /* background: url("https://cdn.hipwallpaper.com/i/5/38/NvWhsk.jpg"); */
+
   background: url("./images/backgroundImg.png");
   background-size: cover;
   background-repeat: repeat;
@@ -50,10 +50,9 @@ button {
 }
 
 #appTitle {
-  /* font-size: 40px; */
   color: white;
   font-weight: bold;
-  /* position: absolute; */
+
   margin: 0 auto;
 }
 

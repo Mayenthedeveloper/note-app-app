@@ -40,7 +40,6 @@
   margin-bottom: 10px;
   box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.2);
   background-color: yellow;
-  width: 82vw;
   min-height: 30vh;
   height: auto;
   position: relative;
@@ -53,11 +52,13 @@
 }
 
 #inputFld {
-  width: 100%;
+  width: 98%;
+  border: solid black 3px;
+  margin-bottom: 10px;
 }
 
-/* @media screen and (min-width: 460px) {
-  #inputFld {
-    background-color: red;
-  }
-} */
+#addBtn {
+  border: solid rgb(1, 1, 12) 3px;
+  background-color: #dae2e4;
+  height: 2.5rem;
+}

@@ -48,21 +48,16 @@ export default function NoteItemTodo(props) {
     todoArray = [];
   }
 
-  // function addNewLine(event, index) {
-  //   if (event.code == "Enter") {
-  //     todoArray[index] = event.target.innerText;
-
-  //     let todos = todoArray.join(",");
-
-  //     context.editTodoTitle(props.id, props.title, todos);
-  //   }
-  // }
-
   function deleteTodoItem(id, todos, val) {
     context.deletTodoListItem(id, todos, val);
   }
 
   function addItem(id, addText) {
+    if (addText.trim() == "") {
+      alert("Empty item entered.Try again.");
+      return;
+    }
+
     context.addTodoListItem(id, addText);
     setAddText("");
   }
@@ -70,8 +65,7 @@ export default function NoteItemTodo(props) {
   const [addText, setAddText] = useState("");
   const todos =
     props.todo && props.todo.length > 1 ? JSON.parse(props.todo) : props.todo;
-  console.log(JSON.parse(props.todo));
-  console.log(props.todo);
+
   return (
     <div className="NoteItem">
       <input
@@ -80,7 +74,9 @@ export default function NoteItemTodo(props) {
         onChange={(e) => setAddText(e.target.value)}
       />
 
-      <button onClick={() => addItem(props.id, addText)}>Add Todo</button>
+      <button id="addBtn" onClick={() => addItem(props.id, addText)}>
+        Add Todo
+      </button>
 
       <table id="todolist">
         <tbody>
